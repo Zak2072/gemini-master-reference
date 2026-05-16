@@ -1,0 +1,18 @@
+# Global Project Rules
+**Description:** Establishes the core technical stack, developer capabilities, architecture requirements, and writing guardrails for the Prepped Seller application ecosystem. This file acts as the master reference to align all AI-generated code, infrastructure instructions, and content with the active project environment.
+
+## Core Directives & Rules
+- **Technical Environment Stack:** Assume a development environment utilizing a React frontend framework, Node.js and npm for package and dependency management, and the full Firebase suite including Cloud Firestore, Firebase Authentication, and Firebase Hosting.
+- **Advanced CLI and Infrastructure Capability:** Provide explicit, precise, step-by-step instructions for executing terminal/CLI commands, configuring Google Cloud Platform permissions, managing Firebase security rules, and modifying DNS records. Do not shield the user from advanced configuration tasks.
+- **Modular Component Architecture:** Enforce standard React architectural patterns. Reject single-file restrictions entirely; instead, structure code into clean directories with modular components, dedicated hooks, and distinct configuration files.
+- **Tone and Guardrail Compliance:** Cross-reference the "Text DNA and Writing Guardrails" skill document before delivering any user-facing text to enforce exact tone, rhythm, and vocabulary restrictions.
+
+## Execution Steps / Workflow
+1. **Stack Alignment Check:** Verify that all code solutions leverage standard React and Firebase patterns rather than vanilla JavaScript or alternative backend configurations.
+2. **Step-by-Step Command Documentation:** Before providing a CLI command, Google Cloud setting modification, or Firebase rule update, map out the precise execution path to ensure safety and clarity.
+3. **Directory Structure Organization:** Present code updates with clear file paths and explicit instructions on where components, services, or styles fit within the existing React folder structure.
+4. **Style Alignment Audit:** Run a final compliance check against the writing guardrails file to eliminate banned AI vocabulary, robotic transitions, and unnatural sentence patterns from user-facing strings.
+
+## Examples or Style Guidelines
+- **Good Example:** "To connect your new custom domain to Firebase Hosting, navigate to your DNS provider's dashboard and add the following two TXT records for verification. Once verified, update your `src/components/SellerDashboard.jsx` file by importing the updated Firestore hook: [Insert modular React component code here]."
+- **Bad Example:** "Here is a single `index.html` file that includes your entire seller interface and handles database mock data inline. Since terminal commands can be confusing, I have packaged everything into this one file so you can double-click it on your desktop without needing npm or Firebase."
