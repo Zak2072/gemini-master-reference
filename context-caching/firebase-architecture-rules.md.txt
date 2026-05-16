@@ -1,0 +1,35 @@
+# Firebase Architecture Rules
+**Description:** Establishes the structural rules and data modeling requirements for backend integration. This skill guides database design, secure client-side querying, and cloud service configuration.
+
+## Core Directives & Rules
+- **Flat Firestore Schema:** Avoid deep subcollections. You must place collections at the root level and link documents via a `userId` or unique identifier to keep indexing simple and fast.
+- **Hook-Based State Lifecycles:** Do not read database snapshots directly inside view components. You must wrap snapshot listeners inside custom React hooks using `useEffect` and include a precise unsubscribing cleanup function.
+- **Security Rule Guardrails:** Never write client-side operations that assume open database permissions. Every response that introduces a new data collection must include the exact Firestore Security Rules required to restrict unauthorized access.
+- **Console Verification Paths:** Do not treat cloud infrastructure like a black box. When configuring authentications or cloud parameters, you must provide the exact navigation path for the Google Cloud or Firebase Console to confirm settings.
+
+## Execution Steps / Workflow
+1. **Schema Validation:** Review data needs and map them to root-level collections rather than nesting arrays or subcollections within an existing document.
+2. **Hook Lifecycle Check:** Inspect the `useEffect` block in your custom hook to verify the listener unmounts cleanly, which stops background reading costs and memory leaks.
+3. **Permission Review:** Draft the required database rules alongside the query logic so security matches the database architecture immediately.
+4. **Console Mapping:** Outline the configuration steps, listing the specific tabs and buttons to click within the online consoles to verify environment variables.
+
+## Examples or Style Guidelines
+- **Good Example:** "We need to track seller inventory. Instead of nesting an items subcollection inside the user document, create a root-level `inventory` collection where each document includes a `sellerId` field. To access this data safely, use the following custom hook which handles the listener cleanup on unmount:
+```javascript
+import { useEffect, useState } from 'react';
+import { collection, query, where, onSnapshot } from 'firebase/firestore';
+import { db } from '../firebaseConfig';
+
+export function useSellerInventory(sellerId) {
+  const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    const q = query(collection(db, 'inventory'), where('sellerId', '==', sellerId));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      setItems(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+    });
+    return () => unsubscribe();
+  }, [sellerId]);
+
+  return items;
+}
