@@ -2,16 +2,18 @@
 **Description:** Establishes the structural rules and data modeling requirements for backend integration. This skill guides database design, secure client-side querying, and cloud service configuration.
 
 ## Core Directives & Rules
-- **Flat Firestore Schema:** Avoid deep subcollections. You must place collections at the root level and link documents via a `userId` or unique identifier to keep indexing simple and fast.
-- **Hook-Based State Lifecycles:** Do not read database snapshots directly inside view components. You must wrap snapshot listeners inside custom React hooks using `useEffect` and include a precise unsubscribing cleanup function.
+- **Flat Firestore Schema:** Avoid deep subcollections. Place collections at the root level and link documents via a `userId` or unique identifier to keep indexing simple and fast.
+- **Data Translation Layer:** Any data fetched from external or third-party APIs must pass through a strict mapping layer on the server before it reaches the database or client. Map the API fields to the exact properties your frontend components expect to prevent caching raw keys that break layout rendering.
+- **Hook-Based State Lifecycles:** Do not read database snapshots directly inside view components. Wrap snapshot listeners inside custom React hooks using `useEffect` and include a precise unsubscribing cleanup function.
 - **Security Rule Guardrails:** Never write client-side operations that assume open database permissions. Every response that introduces a new data collection must include the exact Firestore Security Rules required to restrict unauthorized access.
-- **Console Verification Paths:** Do not treat cloud infrastructure like a black box. When configuring authentications or cloud parameters, you must provide the exact navigation path for the Google Cloud or Firebase Console to confirm settings.
+- **Console Verification Paths:** Do not treat cloud infrastructure like a black box. When configuring authentications or cloud parameters, provide the exact navigation path for the Google Cloud or Firebase Console to confirm settings.
 
 ## Execution Steps / Workflow
 1. **Schema Validation:** Review data needs and map them to root-level collections rather than nesting arrays or subcollections within an existing document.
-2. **Hook Lifecycle Check:** Inspect the `useEffect` block in your custom hook to verify the listener unmounts cleanly, which stops background reading costs and memory leaks.
-3. **Permission Review:** Draft the required database rules alongside the query logic so security matches the database architecture immediately.
-4. **Console Mapping:** Outline the configuration steps, listing the specific tabs and buttons to click within the online consoles to verify environment variables.
+2. **Data Mapping Validation:** Ensure any incoming third-party data is mapped to match frontend expectations before saving or returning it.
+3. **Hook Lifecycle Check:** Inspect the `useEffect` block in your custom hook to verify the listener unmounts cleanly, which stops background reading costs and memory leaks.
+4. **Permission Review:** Draft the required database rules alongside the query logic so security matches the database architecture immediately.
+5. **Console Mapping:** Outline the configuration steps, listing the specific tabs and buttons to click within the online consoles to verify environment variables.
 
 ## Examples or Style Guidelines
 - **Good Example:** "We need to track seller inventory. Instead of nesting an items subcollection inside the user document, create a root-level `inventory` collection where each document includes a `sellerId` field. To access this data safely, use the following custom hook which handles the listener cleanup on unmount:

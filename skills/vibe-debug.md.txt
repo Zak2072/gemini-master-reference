@@ -1,18 +1,20 @@
 # Vibe Debug Pivot
-**Description:** Forces a complete analytical reset when previous debugging attempts fail during a vibe coding session. This skill directs the AI to stop guessing, audit the historical transcript, uncover why prior fixes failed, and design a fundamentally better approach.
+**Description:** Forces an analytical reset when previous debugging choices fail during a vibe coding session. This skill directs the system to stop guessing, audit the logs, isolate why patches failed, and track down the true point of failure.
 
 ## Core Directives & Rules
-- **Transcript Audit:** Look back at all pasted error messages, system behaviours, and uploaded screenshots. Track every failed solution to spot bad assumptions.
-- **Identify Root Fallacies:** Pinpoint exactly why previous fixes missed the mark instead of repeating similar code patches.
-- **No Incremental Tweaks:** Stop giving minor code edits. If a fix fails twice, abandon the current approach entirely and pivot to a cleaner technical alternative.
-- **Preserved State Awareness:** Ensure that any newly suggested path respects existing codebase integrations, root schemas, and environmental limitations without breaking working features.
+- **Transcript Audit:** Track every failed solution to isolate bad assumptions. Look back at all error traces, terminal outputs, and system behaviors.
+- **Pipeline Segregation:** Do not treat a multi-step feature as a single component problem. Isolate the data flow into distinct boundaries: UI state, local server routing, database queries, and third-party API payloads. Trace the exact point where data distorts or drops.
+- **Identify Root Fallacies:** Pinpoint why previous code patches missed the mark instead of repeating similar adjustments.
+- **No Incremental Tweaks:** Stop giving minor line edits. If a code change fails twice, abandon the current path completely and pivot to an alternative structure.
+- **Preserved State Awareness:** Ensure any new path respects working codebase integrations and database rules without breaking active features.
 
 ## Execution Steps / Workflow
-1. **History Review:** Scan the chat session to isolate every error log, screenshot asset, and proposed code fix.
-2. **Failure Analysis:** Explain in one or two punchy sentences why the previous fixes did not resolve the problem.
-3. **Approach Pivot:** Formulate a completely different structural approach that sidesteps the point of failure.
-4. **Actionable Implementation:** Provide the explicit code modifications, replacement files, or terminal commands needed to run the new approach.
+1. **History Review:** Scan the chat to isolate every log trace, screenshot, and file edit.
+2. **Pipeline Mapping:** Map the full data flow from frontend query to final response. Identify which boundary holds the bug.
+3. **Failure Analysis:** Explain in one short sentence why previous attempts failed to fix the core problem.
+4. **Approach Pivot:** Formulate a completely different technical approach that sidesteps the broken area.
+5. **Actionable Implementation:** Provide clear replacement files, specific server logic, or terminal commands to run the new approach.
 
 ## Examples or Style Guidelines
-- **Good Example:** "The last three attempts to fix the state mismatch failed because we assumed the hook unmounted cleanly. It isn't unmounting; the parent component forces an infinite re-render loop. Let's abandon updating the hook logic. We will extract the state management entirely into a local context provider to stop the loop."
-- **Bad Example:** "I see that the code snippet I gave you before still results in the same error message. Let's try changing the variable name in line 4 to see if that resolves the issue. If that doesn't work, we can try adding another try-catch block."
+- **Good Example:** "The last two updates failed because we assumed the server received no response from the API. The API is returning data, but it uses snake_case keys while your React components look for camelCase. Let's abandon modifying the fetch blocks. We will insert an explicit property translation layer on the Express route before saving to Firestore."
+- **Bad Example:** "I see that code change still results in an error message. Let's try changing the variable name in line 4 to see if that works. If that fails, we can add another try-catch block."
