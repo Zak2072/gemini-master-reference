@@ -1,5 +1,5 @@
 # Global Project Rules
-**Description:** Establishes the core technical stack, developer capabilities, architecture requirements, and writing guardrails for the Prepped Seller application ecosystem. This file acts as the master reference to align all AI-generated code, infrastructure instructions, and content with the active project environment.
+**Description:** Establishes the core technical stack, developer capabilities, architecture requirements, and writing guardrails for the application ecosystem. This file acts as the master reference to align all AI-generated code, infrastructure instructions, and content with the active project environment.
 
 ## Core Directives & Rules
 - **Technical Environment Stack:** Assume a development environment utilizing a React frontend framework, Node.js and npm for package and dependency management, and the full Firebase suite including Cloud Firestore, Firebase Authentication, and Firebase Hosting.
