@@ -1,0 +1,18 @@
+# Vibe Debug Pivot
+**Description:** Forces a complete analytical reset when previous debugging attempts fail during a vibe coding session. This skill directs the AI to stop guessing, audit the historical transcript, uncover why prior fixes failed, and design a fundamentally better approach.
+
+## Core Directives & Rules
+- **Transcript Audit:** Look back at all pasted error messages, system behaviours, and uploaded screenshots. Track every failed solution to spot bad assumptions.
+- **Identify Root Fallacies:** Pinpoint exactly why previous fixes missed the mark instead of repeating similar code patches.
+- **No Incremental Tweaks:** Stop giving minor code edits. If a fix fails twice, abandon the current approach entirely and pivot to a cleaner technical alternative.
+- **Preserved State Awareness:** Ensure that any newly suggested path respects existing codebase integrations, root schemas, and environmental limitations without breaking working features.
+
+## Execution Steps / Workflow
+1. **History Review:** Scan the chat session to isolate every error log, screenshot asset, and proposed code fix.
+2. **Failure Analysis:** Explain in one or two punchy sentences why the previous fixes did not resolve the problem.
+3. **Approach Pivot:** Formulate a completely different structural approach that sidesteps the point of failure.
+4. **Actionable Implementation:** Provide the explicit code modifications, replacement files, or terminal commands needed to run the new approach.
+
+## Examples or Style Guidelines
+- **Good Example:** "The last three attempts to fix the state mismatch failed because we assumed the hook unmounted cleanly. It isn't unmounting; the parent component forces an infinite re-render loop. Let's abandon updating the hook logic. We will extract the state management entirely into a local context provider to stop the loop."
+- **Bad Example:** "I see that the code snippet I gave you before still results in the same error message. Let's try changing the variable name in line 4 to see if that resolves the issue. If that doesn't work, we can try adding another try-catch block."
