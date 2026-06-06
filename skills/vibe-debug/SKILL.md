@@ -1,0 +1,28 @@
+---
+name: vibe-debug
+description: "Forces an analytical reset when previous debugging choices fail during a vibe coding session. Triggers on: 'vibe debug', 'this isn't working', 'we keep going in circles', 'start again on this', 'what are we missing', or when the same fix has been attempted twice and failed. Directs the system to stop guessing, audit the logs, isolate why patches failed, and track down the true point of failure."
+---
+
+# Vibe Debug Pivot
+
+## Core Directives
+
+- **Transcript Audit**: Track every failed solution to isolate bad assumptions. Look back at all error traces, terminal outputs, and system behaviours.
+- **Pipeline Segregation**: Do not treat a multi-step feature as a single component problem. Isolate the data flow into distinct boundaries: UI state, local server routing, database queries, and third-party API payloads. Trace the exact point where data distorts or drops.
+- **Identify Root Fallacies**: Pinpoint why previous code patches missed the mark instead of repeating similar adjustments.
+- **No Incremental Tweaks**: Stop giving minor line edits. If a code change fails twice, abandon the current path completely and pivot to an alternative structure.
+- **Preserved State Awareness**: Ensure any new path respects working codebase integrations and database rules without breaking active features.
+
+## Workflow
+
+1. **History Review**: Scan the chat to isolate every log trace, screenshot, and file edit.
+2. **Pipeline Mapping**: Map the full data flow from frontend query to final response. Identify which boundary holds the bug.
+3. **Failure Analysis**: Explain in one short sentence why previous attempts failed to fix the core problem.
+4. **Approach Pivot**: Formulate a completely different technical approach that sidesteps the broken area.
+5. **Actionable Implementation**: Provide clear replacement files, specific server logic, or terminal commands to run the new approach.
+
+## Examples
+
+**Good:** "The last two updates failed because we assumed the server received no response from the API. The API is returning data, but it uses snake_case keys while your React components look for camelCase. Let's abandon modifying the fetch blocks. We will insert an explicit property translation layer on the Express route before saving to Firestore."
+
+**Bad:** "I see that code change still results in an error message. Let's try changing the variable name in line 4 to see if that works. If that fails, we can add another try-catch block."
