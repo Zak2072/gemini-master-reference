@@ -18,6 +18,7 @@ To add a new advisor, add their name and skill reference to this list. To update
 | Rory Sutherland | rory-sutherland | Reframing, psycho-logic, the non-obvious |
 | Roger Martin | roger-martin | Strategy, choices, what winning looks like |
 | Peter Drucker | peter-drucker | Mission, effectiveness, non-profit management |
+| Audrey Tang | audrey-tang | Civic technology, digital participation, fork-not-fight |
 
 ## Named Cohorts
 
@@ -30,6 +31,8 @@ Cohorts let David convene a specific subset without listing names. Update these 
 - **Grounding**: Charles Handy, Seth Godin *(for stressful decisions)*
 - **Mission**: Peter Drucker, Charles Handy *(for charitable and purpose-driven questions)*
 - **Governance**: Peter Drucker, Roger Martin *(for trustee, board, and structural decisions)*
+- **Civic Tech**: Audrey Tang, Peter Drucker *(for digital civic tools and mission-driven implementation)*
+- **Disruption**: Audrey Tang, Rory Sutherland *(for reframing and non-obvious civic approaches)*
 
 ## Invocation Options
 
@@ -113,6 +116,11 @@ If David responds to the board, route his response to the specific advisor or ad
 
 ### Peter Drucker
 [Response in Peter's voice]
+
+---
+
+### Audrey Tang
+[Response in Audrey's voice]
 
 ---
 
