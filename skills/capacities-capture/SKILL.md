@@ -9,18 +9,18 @@ Turn a chat into a single, well-linked object in David's Capacities space. The c
 
 ## Configuration (edit once, then leave it)
 
-These are David's real type and property names. If they are wrong, he corrects them here and nowhere else.
+These are David's real type and property keys, confirmed against the live space with `getObjectTypeShape`. The frontmatter write uses the exact keys below, not the display labels. Get a key wrong and the link silently drops into the body as plain text.
 
 - **Target object type:** `Idea`
-- **Object-select properties on that type:**
-  - `Initiative` (links to the `Initiative` type: EXELA, CFPA, CCC, Cheltenham Trust, Mentoring)
-  - `Related Ideas` (links to other `Idea` objects)
-  - `People` (links to the `Person` type)
-- **Source property (optional):** `Source` (plain text or URL property for the chat link). If it does not exist, put the link inline in the body instead.
-- **Theme tags:** apply from David's existing tags only, for example governance, ai-skills, pricing, partnerships. Never invent a tag that does not already exist.
+- **Entity-link property keys on that type** (all expect `[[Linked Object Title]]` wiki-link values referencing the object by its exact title, not an ID):
+  - `initiatives` (links to the `Initiative` type; current objects: Local Community, Mentoring, CFPA, EXELA)
+  - `relatedIdeas` (links to other `Idea` objects, self-referencing)
+  - `people` (links to the `Person` type)
+- **Tags:** the `tags` key links to the tag type. Apply from David's existing tags only, for example governance, ai-skills, pricing, partnerships. Never invent a tag that does not already exist.
 - **Status tag:** default to `open` unless the chat clearly resolves the matter, in which case use `actioned`.
+- **Source link:** there is no Source property, so put the chat link as a plain inline markdown link at the top of the body.
 
-If the real names differ from the above, trust the live space over this list. Always confirm against `getObjectTypeShape` before writing.
+If the shape ever changes, re-run `getObjectTypeShape` on `Idea` and trust the live keys over this list.
 
 ## The workflow
 
@@ -40,32 +40,31 @@ Write the summary in David's voice. British English, no em dashes, no AI-tell vo
 
 Call the connector `search` tool with the key nouns from the summary: the initiative, the people, the themes, any distinctive object names. Search is keyword plus semantic, so it finds related notes by meaning, not just exact title.
 
-Capture the object **ID and title** of each genuine match. These IDs are how the links get made. Do not guess or fabricate an ID. If search returns nothing relevant for a given property, leave that property empty rather than forcing a link.
+Capture the **exact title** of each genuine match, because the links are written as `[[Title]]` wiki-links and must match the object's real title precisely. Do not guess or fabricate a title. If search returns nothing relevant for a given property, leave that property empty rather than forcing a link.
 
 Search is best-effort and ranked, not exhaustive, so it surfaces the obvious neighbours rather than every possible one. That is fine. The user verifies at the end.
 
 ### 3. Read the type shape (read step)
 
-Call `getObjectTypeShape` on the target type (`Idea`) to get the exact property keys and the format each object-select property expects. Use whatever the shape tells you, not what this file assumes. This is the step that stops the write from silently dropping the links into the body as plain text.
+Call `getObjectTypeShape` on `Idea` to confirm the property keys are still `initiatives`, `relatedIdeas` and `people`, and still expect `[[Title]]` values. They were correct at setup, but a rename in Capacities would change them. This is the cheap check that stops a write from silently dropping links into the body. If the shape matches the Configuration block, proceed; if it has drifted, follow the live shape and tell David the config needs updating.
 
 ### 4. Create the object (write step)
 
-Call `createObjectViaMd`. Put the object-select links in the frontmatter, mapped to the property keys from step 3, referencing the objects found in step 2 by their ID (or by the format the shape requires). Put the summary in the markdown body. Put the chat link in the `Source` property if it exists, otherwise as a plain inline markdown link at the top of the body.
+Call `createObjectViaMd` against the `Idea` type. Put the links in the frontmatter using the exact property keys (`initiatives`, `relatedIdeas`, `people`), and write each value as a `[[Title]]` wiki-link referencing the object by its exact title from step 2, not an ID. Put the summary in the markdown body, with the chat link as a plain inline markdown link at the top.
 
-Do not write `[[ ]]` wiki-links in the body and assume they resolve into backlinks. Through the connector that is not reliable. Real links come from the frontmatter properties, so that is where they go.
+A distinction that matters: the `[[Title]]` format belongs in the frontmatter property values, where it is the documented way to create the link. Do not scatter `[[ ]]` wiki-links through the body prose expecting them to resolve into backlinks; that is not reliable. The real links come from the frontmatter keys, so that is the only place they go.
 
-Frontmatter shape (adapt keys to the live shape):
+Frontmatter shape (keys are fixed; titles come from your search matches):
 
 ```markdown
 ---
 title: <short descriptive title, not the whole first line>
-Initiative: <matched Initiative object>
-Related Ideas: [<matched Idea objects, if any>]
-People: [<matched Person objects, if any>]
-Source: <chat URL>
+initiatives: [[CFPA]]
+relatedIdeas: ["[[Some related idea]]", "[[Another idea]]"]
+people: ["[[Jane Smith]]"]
 ---
 
-[link back to chat](<chat URL>)   <!-- only if no Source property exists -->
+[link back to chat](<chat URL>)
 
 ## Decisions reached
 ...
@@ -77,14 +76,14 @@ Source: <chat URL>
 ...
 ```
 
-After creating, apply the theme and status tags.
+Use a single `[[Title]]` for one match and a list for several. Omit a key entirely if there was no match for it. After creating, apply the theme and status tags.
 
 ### 5. Verify and report
 
 Call `createObjectLink` to get a URL to the new object and give it to David so he can open it. Tell him plainly:
 
 - the title and type created
-- which objects it was linked to (Initiative, Related Ideas, People)
+- which objects it was linked to (initiatives, relatedIdeas, people)
 - which links you could not make because no match was found
 - the tags applied
 
@@ -92,7 +91,7 @@ Keep the report to a few lines. If any link failed to land, say so rather than i
 
 ## Edge cases
 
-- **No related objects found.** Create the note unlinked, set the Initiative if David named one in the chat, and flag that it went in without graph links so he can connect it by hand.
+- **No related objects found.** Create the note unlinked, set `initiatives` if David named one in the chat, and flag that it went in without graph links so he can connect it by hand.
 - **Connector not active.** Stop and tell him the Capacities connector needs to be connected in this client first. Do not pretend to write.
 - **Wrong initiative ambiguous.** If two initiatives could fit and the chat does not make it obvious, ask once rather than guessing. A wrong link is worse than a missing one.
 - **Multiple distinct topics in one chat.** The connector works best one object at a time. Offer to create separate Idea objects rather than cramming unrelated threads into one note.
