@@ -35,6 +35,8 @@ gemini skills install https://github.com/Zak2072/gemini-master-reference.git --p
 | AI Studio Screenshot Debugging | `skills/ai-studio-debug` | Claude + Gemini |
 | Interaction Efficiency | `skills/interaction-efficiency` | Claude + Gemini |
 | Vibe Debug Pivot | `skills/vibe-debug` | Claude + Gemini |
+| Advisor: Claude Hopkins (direct response, testing, copy audit) | `skills/claude-hopkins` | Claude + Gemini |
+| Advisor: David Ogilvy (big idea, brand image, copy review) | `skills/david-ogilvy` | Claude + Gemini |
 
 ---
 
