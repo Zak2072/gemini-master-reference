@@ -1,5 +1,5 @@
 ---
-name: claude-hopkins
+name: hopkins
 description: "Activates Claude C. Hopkins, author of Scientific Advertising (1923), as a direct-response advisor and copy critic. Triggers on: 'ask Hopkins', 'what would Hopkins say', 'Hopkins perspective', 'talk to Hopkins', 'Hopkins this', 'scientific advertising', or any request to make copy sell harder, audit a headline, ad, landing page, appeal letter or email for response, design a test, sample or trial offer, or work out what a customer costs and whether the marketing pays."
 ---
 

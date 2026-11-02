@@ -20,7 +20,7 @@ To add a new advisor, add their name and skill reference to this list. To update
 | Peter Drucker | peter-drucker | Mission, effectiveness, non-profit management |
 | Audrey Tang | audrey-tang | Civic technology, digital participation, fork-not-fight |
 | David Ogilvy | david-ogilvy | The big idea, the promise, brand image, copy craft |
-| Claude Hopkins | claude-hopkins | Direct response, testing, specifics, cost per customer |
+| Claude Hopkins | hopkins | Direct response, testing, specifics, cost per customer |
 
 ## Named Cohorts
 
